@@ -37,3 +37,108 @@ def checkCurves(point):
         if point[0]>=200  and  point[0]<=250 and   point[1]>=y1   and  point[1]<=y2:
             return "inside"
     return "outside"
+    def checkPoints(point):
+    
+    if checkCurves(point)=="inside":
+        return "inside"
+    triangles=[   [[25,15],[20,80],[50,50]], [[50,50],[25,15],[75,15]], [[50,50],[75,15],[100,50]], [[50,50],[100,50],[75,80]],  [[200,175],[225,160],[250,175]],  [[200,175],[225,190],[250,175]]  ,[[ 95,170],[ 31,133],[ 36,125]] ]
+   
+    pi=3.14159
+    X=[95,30]
+    Y=[95-(np.cos(pi/6)*75), 30+(75*np.sin(pi/6))]
+    Z=[95+(10*np.sin(pi/6)), 30+(10*np.cos(pi/6))]
+    W=[Z[0]-(np.cos(pi/6)*75), Z[1]+(75*np.sin(pi/6))]
+    
+    if checkHalfPlane(X, Y, point[0], 200-point[1])==0 and checkHalfPlane(X, Z, point[0], 200-point[1])==0 and checkHalfPlane(Y, W,point[0], 200-point[1])==1 and checkHalfPlane(Z, W, point[0], 200-point[1])==1:
+        #print("savle")    
+        return "inside"
+    
+    for tri in triangles:
+        #print(tri)
+        #print("yes")
+        a=tri[0]
+        b=tri[1]
+        c=tri[2]
+        X=[a[0],b[0],c[0]]
+        Y=[a[1],b[1],c[1]]
+        X.sort()
+        Y.sort()
+        #print(X)
+        #print(Y)
+#        if point[0]<X[0]    or    point[0]>X[2]    or   point[1]<Y[0]    or    point[1]>Y[2]:
+#            return "outside"
+        lists=[[a,b,c],[b,c,a],[a,c,b]]
+        flag_counter=0
+        for p in lists:
+            
+            p1=p[0]
+            p2=p[1]
+            p3=p[2]
+            #print([p1,p2,p3])
+            if p1[0]==p2[0]:
+                if p3[0]>p1[0]:
+                    #print( ["x","greater",p1[0],"        ",p1[1],p2[1]])
+                    q=[p1[1],p2[1]]
+                    q.sort()
+                    if point[0]>= p1[0] :#  and    point[1]>= q[0]    and    point[1]<= q[1]:
+                        flag_counter=flag_counter+1
+                        #print("hi")
+                        continue
+                        
+                else:
+                    #print(["x","lesser",p1[0]])
+                    q=[p1[1],p2[1]]
+                    q=q.sort()
+                    if point[0]<=p1[0] :#  and    point[1]>=q[0]    and    point[1]<=q[1]:
+                        flag_counter=flag_counter+1
+                        #print("hi")
+                        continue
+            else:
+                slope=(p2[1]-p1[1])/(p2[0]-p1[0])
+                c1=p1[1]-(slope*p1[0])
+                sign="lesser"
+                if p3[1]>p1[1]    or   p3[1]>p2[1]:
+                    sign="greater"
+                
+                
+                
+                
+                #print(["y",sign,slope,c1,"     ",p1[0],p2[0]])
+                
+                if sign=="greater":
+                    var=(slope*point[0])+c1
+                    q=[p1[0],p2[0]]
+                    q.sort()
+                    #print([var,q,point])
+                    if   point[1]>=var :#  and point[0]>=q[0]    and   point[0]<=q[1]:
+                        flag_counter=flag_counter+1
+                        #print("hi")
+                        continue
+                    
+                    
+                    
+                else:
+                    var=(slope*point[0])+c1
+                    q=[p1[0],p2[0]]
+                    q.sort()
+                    #print([var,q,point])
+                    if   point[1]<=var :#or (var<=p1[1]   and   var<=p2[1])  :#  and point[0]>=q[0]    and   point[0]<=q[1]:
+                        flag_counter=flag_counter+1
+                        #print("hi")
+                        continue
+            
+        #print(flag_counter)
+        
+        if flag_counter==3:
+            return "inside"
+        
+        
+
+		# Half Planes for Rectangle
+		
+      
+    return "outside" 
+    #for ellipse
+    
+#print(checkPoints([227,188])
+#print(checkPoints([1,6/5+0.1])
