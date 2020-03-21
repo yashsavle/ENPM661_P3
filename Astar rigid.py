@@ -100,8 +100,8 @@ def maze_solver_Astar():
     goal=[int(goalx),200-int(goaly),0]
     #goal=[150,200-150,0]
     #goal=[90,200-50,0]
-    robot_diameter=input("Enter robot diameter:")
-    robot_diameter=int(robot_diameter)
+    robot_diameter=input("Enter robot radius:")
+    robot_diameter=2*int(robot_diameter)
     
     clearance=input("Enter clearance value:")
     clearance=int(clearance)
@@ -118,7 +118,7 @@ def maze_solver_Astar():
         return
     theta=30
     threshold=0.5
-    step_size=input("Enter step size")
+    step_size=input("Enter step size:")
     step_size=int(step_size)
     action_set=[]
     if goal[1]-start[1]>0:
