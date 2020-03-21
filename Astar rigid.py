@@ -268,7 +268,7 @@ def maze_solver_Astar():
                     #print("ASTAR")
                     parent[adj1][adj2][adj3] =current
                     temp=n
-                    #cv2.line(frame,(int(X),int(Y)),(int(current[0]),int(current[1])), (255,0,0), 2)
+                    cv2.line(frame,(int(X),int(Y)),(int(current[0]),int(current[1])), (255,0,0), 1)
     
                     #plt.plot(int(adjacent[n][0]),int(adjacent[n][1]),'bo',markersize=1)
                     frame[int(adjacent[n][1])][int(adjacent[n][0])]=(255,255,255)
@@ -327,7 +327,7 @@ def maze_solver_Astar():
         print(p)
         
     for p in range(len(route)-2-1,-1,-1):
-        cv2.line(frame,(int(route[p][0]),int(route[p][1])),(int(route[p+1][0]),int(route[p+1][1])), (0,0,255), 2)
+        cv2.line(frame,(int(route[p][0]),int(route[p][1])),(int(route[p+1][0]),int(route[p+1][1])), (0,0,255), 3)
         out.write(frame)
 
     print(numExpanded)
